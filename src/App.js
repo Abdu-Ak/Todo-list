@@ -54,7 +54,7 @@ function App() {
                     newObj.Status=e.target.checked;
                     document.getElementById('text').style.textDecoration='line-through'
                   }
-                  return newObj
+                  return newObj       
                 }))
               }}value={obj.Status} checked={obj.Status} name="" id="" />
               <p className='mt-3' id='text'>{obj.Status=== true ? <p className='mt-3' style={{ textDecorationLine: 'line-through' }}>{obj.text}</p> : obj.text }</p>
