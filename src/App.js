@@ -18,7 +18,7 @@ function App() {
       </div>
       <div className="input mt-5">
         <input value={toDo} onChange={(e)=>{setTodo(e.target.value)}} type="text" autoFocus placeholder="🖊️ Add item..." />
-        <i onClick={()=>{setTodos([...toDos,{id :Date.now()  ,text: toDo,Status: false }])}} className="fas fa-plus"></i>
+        <i onClick={()=>{setTodos([...toDos,{id :Date.now()  ,text: toDo,Status: false }]) ;setTodo('')}} className="fas fa-plus"></i>
       </div>
       <div className='d-flex justify-content-between pt-3'>
         <button id='all'  onClick={()=>{setFilter('all') 
@@ -44,29 +44,31 @@ function App() {
       <div className="todos">
       {
         toDos.map((obj)=>{
-         if (filter === "all" || filter === "" ) {
-          return(
-            <div className="todo">
-            <div className="left">
-              <input  type="checkbox" onChange={(e)=>{
-                setTodos(toDos.filter(newObj=>{
-                  if (newObj.id===obj.id) {
-                    newObj.Status=e.target.checked;
-                    document.getElementById('text').style.textDecoration='line-through'
-                  }
-                  return newObj       
-                }))
-              }}value={obj.Status} checked={obj.Status} name="" id="" />
-              <p className='mt-3' id='text'>{obj.Status=== true ? <p className='mt-3' style={{ textDecorationLine: 'line-through' }}>{obj.text}</p> : obj.text }</p>
-            </div>
-            <div className="right">
-              <i onClick={()=>{remove(obj.id)}} className="fas fa-times"></i>
-            </div>
-          </div>  
-          )
-         } else if (filter === "pending" || filter === "complete" ) {
+         if (filter === "all" || filter === ""  ) {
+          if (obj.text !== "" ) {
+            return(
+              <div className="todo">
+              <div className="left">
+                <input  type="checkbox" onChange={(e)=>{
+                  setTodos(toDos.filter(newObj=>{
+                    if (newObj.id===obj.id) {
+                      newObj.Status=e.target.checked;
+                      document.getElementById('text').style.textDecoration='line-through'
+                    }
+                    return newObj   
+                  }))
+                }}value={obj.Status} checked={obj.Status} name="" id="" />
+                <p className='mt-3' id='text'>{obj.Status=== true ? <p className='mt-3' style={{ textDecorationLine: 'line-through' }}>{obj.text}</p> : obj.text }</p>
+              </div>
+              <div className="right">
+                <i onClick={()=>{remove(obj.id)}} className="fas fa-times"></i>
+              </div>
+            </div>  
+            )
+          }
+         } else if (filter === "pending" || filter === "complete"   ) {
           let status = filter === 'complete' ? true : false ;
-          if (obj.Status === status) {
+          if (obj.Status === status && obj.text !== "") {
            
             return(
               <div className="todo">
